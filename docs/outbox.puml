@@ -1,0 +1,20 @@
+@startuml
+title Outbox Pattern Example
+
+actor User
+participant "Service A" as A
+database "Outbox Database" as DB
+participant "Message Queue" as MQ
+participant "Service B" as B
+
+User -> A: 이벤트 액션 (주문 등..)
+A -> DB: Local Transaction (이벤트 트랜잭션 과 Outbox Entity 생성)
+DB -> A: Data committed
+
+== Asynchronous Processing ==
+A -> MQ: 전송 되지않은 Outbox Entity 읽고 전송
+MQ -> B: 다른 서비스에 전달
+
+B -> A: 메세지 전송 확인 및 이벤트 처리
+
+@enduml
