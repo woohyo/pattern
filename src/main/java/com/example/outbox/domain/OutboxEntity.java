@@ -1,4 +1,4 @@
-package com.example.outbox;
+package com.example.outbox.domain;
 
 
 import lombok.Getter;

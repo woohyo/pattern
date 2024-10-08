@@ -1,22 +1,44 @@
 package com.example.outbox;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.outbox.domain.OrderEntity;
+import com.example.outbox.service.OrderService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/order")
+@RequiredArgsConstructor
 public class OrderController {
+    private final OrderService orderService;
+
+    // Outbox
     @PostMapping
-    public void order() {
+    public UUID order() {
         // 주문 이벤트 발행 (생략)
+        return orderService.orderEvent();
+    }
 
-        // 아웃박스 Entity 생성
-        OutboxEntity outBoxEntity = new OutboxEntity(UUID.randomUUID());
-        OutboxRepository.OUTBOX_ENTITIES.add(outBoxEntity);
+    // 상품이 부족해서 취소가 되어야 함
+    @PostMapping("/cancel/fail/{id}")
+    public void failedCancel(@PathVariable UUID id) {
+        orderService.failedCancelEvent(id);
+    }
 
-        // 메세지 전송 실패
+    // Outbox
+    @PostMapping("/cancel/{id}")
+    public void cancel(@PathVariable UUID id) {
+        orderService.succeedCancelEvent(id);
+    }
+
+    @PostMapping("/delivery/{id}")
+    public void delivery(@PathVariable UUID id) {
+        orderService.delivery(id);
+    }
+
+    @GetMapping("/{id}")
+    public OrderEntity get(@PathVariable UUID id) {
+        return orderService.findById(id);
     }
 }
