@@ -13,6 +13,15 @@ import java.util.UUID;
 public class OrderController {
     private final OrderService orderService;
 
+    /**
+     * 주문 서비스 시나리오
+     * 1. 사용자가 주문 생성
+     *   1-1. 상품 서비스에서 재고 확인 및 차감
+     *   1-2. 입금
+     * 2. 배송 상태로 변경
+     * 3. 상품 서비스 에서 취소 요청
+     */
+
     // Outbox
     @PostMapping
     public UUID order() {
