@@ -10,11 +10,13 @@ import java.util.UUID;
 @ToString
 public class OutboxEntity {
     private UUID id;
+    private UUID orderId;
 
     private boolean isSent;
 
-    public OutboxEntity(UUID id) {
+    public OutboxEntity(UUID id, UUID orderId) {
         this.id = id;
+        this.orderId = orderId;
         this.isSent = false;
     }
 

@@ -20,7 +20,7 @@ public class OrderService {
         OrderEntity orderEntity = OrderEntity.create();
         OrderRepository.ORDER_ENTITIES.put(orderEntity.getId(), orderEntity);
         // 아웃박스 Entity 생성
-        OutboxEntity outBoxEntity = new OutboxEntity(UUID.randomUUID());
+        OutboxEntity outBoxEntity = new OutboxEntity(UUID.randomUUID(), orderEntity.getId());
         OutboxRepository.OUTBOX_ENTITIES.add(outBoxEntity);
         return orderEntity.getId();
     }
@@ -56,7 +56,7 @@ public class OrderService {
             return entity;
         });
 
-        OutboxEntity outboxEntity = new OutboxEntity(UUID.randomUUID());
+        OutboxEntity outboxEntity = new OutboxEntity(UUID.randomUUID(), orderId);
         OutboxRepository.OUTBOX_ENTITIES.add(outboxEntity);
     }
 

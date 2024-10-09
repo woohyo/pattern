@@ -16,7 +16,6 @@ public class OrderController {
     // Outbox
     @PostMapping
     public UUID order() {
-        // 주문 이벤트 발행 (생략)
         return orderService.orderEvent();
     }
 

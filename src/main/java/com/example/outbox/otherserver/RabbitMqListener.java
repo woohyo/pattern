@@ -13,7 +13,7 @@ public class RabbitMqListener {
     @EventListener
     public void subscribe(OutboxEntity event) {
         // 이벤트를 받은 다른 서버에서 처리
-        log.info("{} 에 대한 상품 재고 조정", event.getId());
-        log.info("{} 에 대한 금액 입금(환불)", event.getId());
+        log.info("{} 에 대한 상품 재고 조정", event.getOrderId());
+        log.info("{} 에 대한 금액 입금(환불)", event.getOrderId());
     }
 }
