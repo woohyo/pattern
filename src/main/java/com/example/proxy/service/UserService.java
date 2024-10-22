@@ -9,6 +9,11 @@ public class UserService {
 
     public String getUserById(Long id) {
         // 실제 비즈니스 로직
+        hi();
         return "User with ID: " + id;
+    }
+
+    public void hi() {
+       System.out.println("hi test");
     }
 }
