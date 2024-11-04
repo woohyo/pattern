@@ -1,0 +1,20 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title Strategy Pattern
+
+Client -> Context: setStrategy(StrategyA)
+
+Client -> Context: doSomething()
+Context -> ConcreteStrategyA: doSomething()
+ConcreteStrategyA -> ConcreteStrategyA: operate
+ConcreteStrategyA --> Context: return
+Context --> Client: return
+
+Client -> Context: setStrategy(StrategyB)
+Client -> Context: doSomething()
+Context -> ConcreteStrategyB: doSomething()
+ConcreteStrategyB -> ConcreteStrategyB: operate
+ConcreteStrategyB --> Context: return
+Context --> Client: return
+@enduml
